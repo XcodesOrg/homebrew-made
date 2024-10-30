@@ -12,6 +12,7 @@ class Xcodes < Formula
 
   def install
     system "make", "install", "prefix=#{prefix}"
+    generate_completions_from_executable(bin/"xcodes", "--generate-completion-script")
   end
 
   test do
