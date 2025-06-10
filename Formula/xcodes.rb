@@ -1,13 +1,13 @@
 class Xcodes < Formula
   desc "Install and switch between multiple versions of Xcode"
   homepage "https://www.xcodes.app"
-  url "https://github.com/XcodesOrg/xcodes.git", tag: "1.6.0"
+  url "https://github.com/XcodesOrg/xcodes.git", tag: "1.6.1"
   head "https://github.com/XcodesOrg/xcodes.git", branch: "main"
 
   bottle do
-    root_url 'https://github.com/XcodesOrg/xcodes/releases/download/1.6.0'
-    sha256 cellar: :any_skip_relocation, mojave: "02cee050f9ea0fd33f96dd4c8c7fbcf406d520de6c5db6977967f59cfbfadb5d"
-    sha256 cellar: :any_skip_relocation, arm64_mojave: "02cee050f9ea0fd33f96dd4c8c7fbcf406d520de6c5db6977967f59cfbfadb5d"
+    root_url 'https://github.com/XcodesOrg/xcodes/releases/download/1.6.1'
+    sha256 cellar: :any_skip_relocation, mojave: "9f206a012c5d0a45abdd45ec28476c8d503622276bb276b6d23f2aacf3686643"
+    sha256 cellar: :any_skip_relocation, arm64_mojave: "9f206a012c5d0a45abdd45ec28476c8d503622276bb276b6d23f2aacf3686643"
   end
 
   def install
