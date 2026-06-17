@@ -1,13 +1,13 @@
 class Xcodes < Formula
   desc "Install and switch between multiple versions of Xcode"
   homepage "https://www.xcodes.app"
-  url "https://github.com/XcodesOrg/xcodes.git", tag: "2.0.1"
+  url "https://github.com/XcodesOrg/xcodes.git", tag: "2.0.2"
   head "https://github.com/XcodesOrg/xcodes.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.0.1"
-    sha256 cellar: :any_skip_relocation, arm64_mojave: "e7d0ebec0bd15f519b6ac0a07cf500afbac3386ed9c6baa84cfbef73a32d36ac"
-    sha256 cellar: :any_skip_relocation, mojave:       "e7d0ebec0bd15f519b6ac0a07cf500afbac3386ed9c6baa84cfbef73a32d36ac"
+    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.0.2"
+    sha256 cellar: :any_skip_relocation, arm64_mojave: "3d2097003ea4684aa4c2cbd0c9457d743d9ecbe0f5724064ac2a6027753eb5b9"
+    sha256 cellar: :any_skip_relocation, mojave:       "3d2097003ea4684aa4c2cbd0c9457d743d9ecbe0f5724064ac2a6027753eb5b9"
   end
 
   resource "XcodesLoginKit" do
