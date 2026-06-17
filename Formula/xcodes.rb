@@ -24,10 +24,14 @@ class Xcodes < Formula
     resource("XcodesLoginKit").stage buildpath/"XcodesLoginKit"
     resource("XcodesKit").stage buildpath/"XcodesKit"
 
-    inreplace "Package.swift" do |s|
-      s.gsub! '.package(path: "../XcodesLoginKit")', '.package(path: "XcodesLoginKit")'
-      s.gsub! '.package(path: "../XcodesKit")', '.package(path: "XcodesKit")'
-    end
+    package_swift = buildpath/"Package.swift"
+    package_swift.atomic_write package_swift.read
+      .gsub('.package(path: "../XcodesLoginKit")', '.package(path: "XcodesLoginKit")')
+      .gsub('.package(path: "../XcodesKit")', '.package(path: "XcodesKit")')
+      .gsub('.package(url: "https://github.com/XcodesOrg/XcodesLoginKit.git", branch: "main")',
+            '.package(path: "XcodesLoginKit")')
+      .gsub('.package(url: "https://github.com/XcodesOrg/XcodesKit.git", .upToNextMinor(from: "1.0.3"))',
+            '.package(path: "XcodesKit")')
 
     system "make", "install", "prefix=#{prefix}"
   end
