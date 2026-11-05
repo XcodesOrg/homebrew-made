@@ -5,9 +5,11 @@ class Xcodes < Formula
   head "https://github.com/XcodesOrg/xcodes.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.0.3"
-    sha256 cellar: :any_skip_relocation, arm64_mojave: "ac254cc1fca16743302709d3d97419b434681930613c16b9748d6af7687f2430"
-    sha256 cellar: :any_skip_relocation, mojave:       "ac254cc1fca16743302709d3d97419b434681930613c16b9748d6af7687f2430"
+    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.1.0"
+    # The release ships one universal (arm64 + x86_64) binary. The `all` tag
+    # matches every macOS version and architecture; `mojave` tags are no
+    # longer recognised by Homebrew and are never selected.
+    sha256 cellar: :any_skip_relocation, all: "ac254cc1fca16743302709d3d97419b434681930613c16b9748d6af7687f2430"
   end
 
   resource "XcodesLoginKit" do
@@ -33,7 +35,12 @@ class Xcodes < Formula
       .gsub('.package(url: "https://github.com/XcodesOrg/XcodesKit.git", .upToNextMinor(from: "1.1.0"))',
             '.package(path: "XcodesKit")')
 
-    system "make", "install", "prefix=#{prefix}"
+    # Build for the native architecture only. The Makefile's universal
+    # (arm64 + x86_64) build fails to link the x86_64 slice with the macOS 27
+    # Command Line Tools, and its hard-coded output path no longer matches
+    # current Swift toolchains. A native build is what homebrew-core does too.
+    system "swift", "build", *std_swift_args, "--disable-sandbox"
+    bin.install ".build/release/xcodes"
   end
 
   test do
