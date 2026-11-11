@@ -1,14 +1,17 @@
 class Xcodes < Formula
   desc "Install and switch between multiple versions of Xcode"
   homepage "https://www.xcodes.app"
-  url "https://github.com/XcodesOrg/xcodes.git", tag: "2.1.0"
+  url "https://github.com/XcodesOrg/xcodes.git", tag: "2.2.0"
   head "https://github.com/XcodesOrg/xcodes.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.0.3"
-    sha256 cellar: :any_skip_relocation, arm64_mojave: "ac254cc1fca16743302709d3d97419b434681930613c16b9748d6af7687f2430"
-    sha256 cellar: :any_skip_relocation, mojave:       "ac254cc1fca16743302709d3d97419b434681930613c16b9748d6af7687f2430"
+    root_url "https://github.com/XcodesOrg/xcodes/releases/download/2.2.0"
+    sha256 cellar: :any_skip_relocation, arm64_mojave: "fbef98d38afd142629460074bcf279af0df4eb242364737d0ecf888f513856d0"
+    sha256 cellar: :any_skip_relocation, mojave:       "fbef98d38afd142629460074bcf279af0df4eb242364737d0ecf888f513856d0"
   end
+  
+  depends_on macos: :ventura
+  depends_on xcode: ["16.0", :build]
 
   resource "XcodesLoginKit" do
     url "https://github.com/XcodesOrg/XcodesLoginKit.git",
@@ -17,7 +20,7 @@ class Xcodes < Formula
 
   resource "XcodesKit" do
     url "https://github.com/XcodesOrg/XcodesKit.git",
-        revision: "f88cce3de084538e30ec40168b5aa36181e7eed9"
+        revision: "37617957ae33310455bfe7cf0835d69e0a6aa3c5"
   end
 
   def install
@@ -30,7 +33,7 @@ class Xcodes < Formula
       .gsub('.package(path: "../XcodesKit")', '.package(path: "XcodesKit")')
       .gsub('.package(url: "https://github.com/XcodesOrg/XcodesLoginKit.git", branch: "main")',
             '.package(path: "XcodesLoginKit")')
-      .gsub('.package(url: "https://github.com/XcodesOrg/XcodesKit.git", .upToNextMinor(from: "1.1.0"))',
+      .gsub('.package(url: "https://github.com/XcodesOrg/XcodesKit.git", .upToNextMinor(from: "1.2.0"))',
             '.package(path: "XcodesKit")')
 
     system "make", "install", "prefix=#{prefix}"
